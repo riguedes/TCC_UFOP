@@ -1,5 +1,5 @@
 # Trabalho de Conclusão de Curso
-Trabalho de Conclusão de Curso (TCC) pela Universidade Federal de Ouro Preto com o tema: Inferindo Emoções em Músicas Através do Processamento de Linguagem Natural, Recuperação da Informação Musical e Percepção de Usuários. Este repositório irá conter o projeto prático que tem como objetivo inferir emoções em músicas a partir de análise de letras, extração de features acústicas usando a API do Spotify e feedback de usuários. O estudo utiliza Processamento de Linguagem Natural (PLN), técnicas de aprendizado de máquina e percepção subjetiva para realizar a classificação emocional de faixas musicais.
+Trabalho de Conclusão de Curso (TCC) pela Universidade Federal de Ouro Preto com o tema: Inferindo Emoções em Músicas Através do Processamento de Linguagem Natural, Recuperação da Informação Musical e Percepção de Usuários. Este repositório irá conter o projeto prático que tem como objetivo inferir emoções em músicas a partir de análise de letras, extração de features acústicas usando a API do Spotify e feedback de usuários. O estudo utiliza Processamento de Linguagem Natural (PLN), técnicas de aprendizado de máquina para Recuperação de Informação Musical e análise de percepção subjetiva para realizar a classificação emocional de faixas musicais com base no ouvinte.
 
 ## 📌Problema de Pesquisa
 Os dados e metadados desempenham um papel crucial na indústria musical ao impulsionar a consolidação de artistas em um mercado altamente competitivo. No ramo do áudio digital especificamente, notamos que serviços que se destacam no mercado, como o Spotify ou Last.fm por exemplo, não se limitam somente ao seu catálogo, mas também oferecem uma gama de serviços de análise dos metadados das músicas e usuários, proporcionando desde recomendações personalizadas até gráficos de comportamento e gostos de seus clientes.
@@ -11,7 +11,7 @@ Plataformas de streaming de música, como Deezer e Spotify, estão cada vez mais
 Dessa forma, o problema pode ser solucionado na questão de analisar esses dados por meio de algoritmos que exploram a questão de sentimentalismo humano, bem como a possibilidade de conseguir gráficos intuitivos e interativos de fácil compreensão a qualquer perfil de usuário.
 
 ## 📌Questões Norteadoras
-1. Como algoritmos de PLN e extração de \textit{features} acústicas podem ser aplicados para identificar emoções nas músicas, considerando letra e áudio?
+1. Como algoritmos de PLN e extração de features acústicas podem ser aplicados para identificar emoções nas músicas, considerando letra e áudio?
 2. De que forma podemos analisar e quantificar os dados e metadados de API's públicas de Recuperação de Informação Musical?
 3. Quais pontos de fricção e oportunidades podem ser identificados a partir dos insights emocionais extraídos das músicas e áudios?
 
@@ -33,3 +33,4 @@ O objetivo geral do trabalho consiste em aplicar técnicas de PLN e de RIM para 
 5. Streamlit (Para interface interativa com usuários, se aplicável)
 6. Pandas, NumPy (Para manipulação de dados)
 7. Matplotlib, Seaborn (Para visualização de resultados)
+8. API Genius (Para extração de letras musicais)
