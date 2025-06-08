@@ -11,9 +11,9 @@ Plataformas de streaming de música, como Deezer e Spotify, estão cada vez mais
 Dessa forma, o problema pode ser solucionado na questão de analisar esses dados por meio de algoritmos que exploram a questão de sentimentalismo humano, bem como a possibilidade de conseguir gráficos intuitivos e interativos de fácil compreensão a qualquer perfil de usuário.
 
 ## 📌Questões Norteadoras
-1. Como algoritmos de PLN e extração de features acústicas podem ser aplicados para identificar emoções nas músicas, considerando letra e áudio?
+1. Como algoritmos de PLN e extração de metadados musicais podem ser aplicados para identificar emoções nas músicas?
 2. De que forma podemos analisar e quantificar os dados e metadados de API's públicas de Recuperação de Informação Musical?
-3. Quais pontos de fricção e oportunidades podem ser identificados a partir dos insights emocionais extraídos das músicas e áudios?
+3. Quais pontos de fricção e oportunidades podem ser identificados a partir dos insights emocionais extraídos das músicas?
 
 ## 📌Objetivos
 O objetivo geral do trabalho consiste em aplicar técnicas de PLN e de RIM para inferir emoções expressas em obras musicais e analisar comparativamente em relação às respostas emocionais percebidas pelos ouvintes. Nesse contexto, os objetivos específicos são:
@@ -21,7 +21,7 @@ O objetivo geral do trabalho consiste em aplicar técnicas de PLN e de RIM para 
 1. Identificar métodos de PLN e RIM para inferência de emoções;
 2. Coletar dados e metadados de obras musicais a serem utilizadas no estudo de caso;
 3. Aplicar métodos de PLN para inferir emoções a partir das letras das músicas;
-4. Aplicar métodos de RIM para inferir emoções a partir do áudio das músicas;
+4. Aplicar métodos de RIM para inferir emoções a partir de metadados musicais;
 5. Planejar e realizar experimento para coletar respostas emocionais de usuários;
 6. Montar um panorama interativo para apresentação dos resultados.
 
@@ -33,6 +33,12 @@ O objetivo geral do trabalho consiste em aplicar técnicas de PLN e de RIM para 
 5. Pandas, NumPy (Para manipulação de dados)
 6. Matplotlib, Seaborn (Para visualização de resultados)
 7. API Genius (Para extração de letras musicais)
+8. Arquivo NRC (Para usar a biblioteca NLTK)
+9. Scipy (Para normalizar dados)
+10. Shapely e Descartes (Para cálculos geométricos)
+11. Wordcloud (Para gerar nuvem de palavras)
+12. SQLite 3 (para gerar banco de dados)
+13. Os, Requests e Re (para manipular requisições de API na web)
 
 ## 📌Contexto
 Analisar a evolução emocional e lírica de artistas que seguiram carreira solo após a dissolução (disband) de bandas formadas em realities musicais, com foco especial em grupos oriundos do programa The X Factor. A investigação será centrada nas três bandas mais proeminentes reveladas pelo programa: Fifth Harmony, Little Mix e One Direction. A partir de uma abordagem analítica sobre letras de músicas e elementos de identidade artística, busca-se compreender como os ex-integrantes se reposicionaram no cenário musical como artistas solos.
