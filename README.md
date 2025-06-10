@@ -46,3 +46,32 @@ Analisar a evolução emocional e lírica de artistas que seguiram carreira solo
 O estudo irá explorar se esses artistas mantiveram as estratégias líricas e emocionais utilizadas durante o período em que faziam parte das bandas, ou se optaram por uma reinvenção estética e identitária. Pretende-se observar, ainda, se o sucesso individual foi construído com base em estratégias autorais próprias, com auxílio de diretrizes da indústria musical, ou mesmo como uma ruptura intencional com a imagem consolidada pela banda.
 
 Ao analisar essas trajetórias, o projeto pretende identificar padrões de continuidade ou ruptura nas narrativas musicais, no branding artístico e na forma como esses músicos lidam com as expectativas deixadas pelo sucesso coletivo anterior. A pesquisa espera contribuir para a compreensão de como artistas oriundos de formações coletivas se adaptam ao mercado solo, especialmente sob a ótica da construção emocional e estratégica de suas carreiras musicais.
+
+## Arquivos gerados
+
+- `songs_info.csv`: dados tratados e normalizados resultantes dos notebooks construídos;
+- `Artista.db`: Banco de Dados SQL com os dados resultantes da API LyricGenius;
+- `ArtistaLyrics.csv`: arquivo CSV com os dados tratados da API LyricGenius;
+- `Lyric_Artista.json`: arquivo JSON resultante da requisição da API LyricGenius;
+- `NRC.tsv`: arquivo para análise de sentimentos;
+- `artistas_info.csv`: dados categóricos dos artistas e bandas;
+- `artista_popularidade.csv`: metadados coletados da API Spotify
+
+**Como utilizar:**
+
+Para executar os notebooks, é necessário um ambiente com *Python3* e dependências que podem ser instaladas via [Pip](https://pypi.org/project/pip/):
+
+Coleta das letras de músicas usando a API LyricGenius
+
+```python
+!pip install pandas
+!pip install lyricgenius
+!pip install nltk
+```
+
+Acesso à API do Spotify:
+
+```python
+!pip install pandas
+!pip install spotipy
+```
