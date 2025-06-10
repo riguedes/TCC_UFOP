@@ -47,7 +47,7 @@ O estudo irá explorar se esses artistas mantiveram as estratégias líricas e e
 
 Ao analisar essas trajetórias, o projeto pretende identificar padrões de continuidade ou ruptura nas narrativas musicais, no branding artístico e na forma como esses músicos lidam com as expectativas deixadas pelo sucesso coletivo anterior. A pesquisa espera contribuir para a compreensão de como artistas oriundos de formações coletivas se adaptam ao mercado solo, especialmente sob a ótica da construção emocional e estratégica de suas carreiras musicais.
 
-## Arquivos gerados
+## 📌Arquivos gerados
 
 - `songs_info.csv`: dados tratados e normalizados resultantes dos notebooks construídos;
 - `Artista.db`: Banco de Dados SQL com os dados resultantes da API LyricGenius;
@@ -57,7 +57,7 @@ Ao analisar essas trajetórias, o projeto pretende identificar padrões de conti
 - `artistas_info.csv`: dados categóricos dos artistas e bandas;
 - `artista_popularidade.csv`: metadados coletados da API Spotify
 
-**Como utilizar:**
+## 📌Como utilizar
 
 Para executar os notebooks, é necessário um ambiente com *Python3* e dependências que podem ser instaladas via [Pip](https://pypi.org/project/pip/):
 
