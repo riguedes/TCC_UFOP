@@ -1,8 +1,6 @@
 # Trabalho de Conclusão de Curso
 Trabalho de Conclusão de Curso (TCC) pela Universidade Federal de Ouro Preto com o tema: Inferindo Emoções em Músicas Através do Processamento de Linguagem Natural e Metadados Musicais. Este repositório irá conter o projeto prático que tem como objetivo inferir emoções em músicas a partir de análise de letras e extração de metadados usando API's públicas de músicas. O estudo utiliza Processamento de Linguagem Natural (PLN) e técnicas de análise de dados para Recuperação de Informação Musical.
 
-O resultado final está disponível em: https://inferify.streamlit.app/
-
 ## 📌Problema de Pesquisa
 Os dados e metadados desempenham um papel crucial na indústria musical ao impulsionar a consolidação de artistas em um mercado altamente competitivo. No ramo do áudio digital especificamente, notamos que serviços que se destacam no mercado, como o Spotify ou Last.fm por exemplo, não se limitam somente ao seu catálogo, mas também oferecem uma gama de serviços de análise dos metadados das músicas.
 
