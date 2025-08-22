@@ -12,9 +12,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("songs_info.csv")
-df_um = pd.read_csv("artistas_popularidade.csv")
-df_dois = pd.read_csv("artistas_info.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
+df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
+df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -115,4 +115,5 @@ st.plotly_chart(fig)
 st.subheader("Distribuição de Composições por Artista")
 fig = px.box(df, x="artist", y="Word Count", color="artist")
 st.plotly_chart(fig)
+
 
