@@ -12,9 +12,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
-df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
-df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
+df = pd.read_csv("songs_info.csv")
+df_um = pd.read_csv("artistas_popularidade.csv")
+df_dois = pd.read_csv("artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -31,12 +31,17 @@ artista_selecionadas = st.sidebar.multiselect("Artista ou Banda", artista_dispon
 album_disponiveis = sorted(df['Album'].unique())
 album_selecionados = st.sidebar.multiselect("Álbum", album_disponiveis, default=album_disponiveis)
 
+# Filtro por Gênero
+genero = sorted(df['genre'].dropna().astype(str).unique())
+genero_um = st.sidebar.multiselect("Gênero Musical", genero, default=genero)
+
 # --- Filtragem do DataFrame ---
 # O dataframe principal é filtrado com base nas seleções feitas na barra lateral.
 df_filtrado = df[
     (df['release_year'].isin(anos_selecionados)) &
     (df['artist'].isin(artista_selecionadas)) &
-    (df['Album'].isin(album_selecionados)) 
+    (df['Album'].isin(album_selecionados)) &
+    (df['genre'].isin(genero_um))
 ]
 
 # --- Conteúdo Principal ---
@@ -50,13 +55,15 @@ if not df_filtrado.empty:
     qntd_anos = df['release_year'].nunique()
     qntd_letras = df['lyrics'].nunique()
     qntd_words = df['Word Count'].sum()
+    qntd_genre = df['genre'].nunique()
 else:
-    qntd_anos, qntd_letras, qntd_words = 0, 0, 0
+    qntd_anos, qntd_letras, qntd_words, qntd_genre = 0, 0, 0, 0
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 col1.metric("Anos Analisados", f"{qntd_anos}")
-col2.metric("Letras de Música Analisadas", f"{qntd_letras}")
-col3.metric("Total de Palavras Compostas", f"{qntd_words:,}")
+col2.metric("Letras Analisadas", f"{qntd_letras}")
+col3.metric("Total de Palavras", f"{qntd_words:,}")
+col4.metric("Gêneros Musicais", f"{qntd_genre}")
 
 st.markdown("---")
 
@@ -115,5 +122,4 @@ st.plotly_chart(fig)
 st.subheader("Distribuição de Composições por Artista")
 fig = px.box(df, x="artist", y="Word Count", color="artist")
 st.plotly_chart(fig)
-
 
