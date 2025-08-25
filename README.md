@@ -41,13 +41,6 @@ O objetivo geral do trabalho consiste em aplicar técnicas de PLN e de RIM para 
 12. SQLite 3 (para gerar banco de dados)
 13. Os, Requests e Re (para manipular requisições de API na web)
 
-## 📌Contexto
-Analisar a evolução emocional e lírica de artistas que seguiram carreira solo após a dissolução (disband) de bandas formadas em realities musicais, com foco especial em grupos oriundos do programa The X Factor. A investigação será centrada nas três bandas mais proeminentes reveladas pelo programa: Fifth Harmony, Little Mix e One Direction. A partir de uma abordagem analítica sobre letras de músicas e elementos de identidade artística, busca-se compreender como os ex-integrantes se reposicionaram no cenário musical como artistas solos.
-
-O estudo irá explorar se esses artistas mantiveram as estratégias líricas e emocionais utilizadas durante o período em que faziam parte das bandas, ou se optaram por uma reinvenção estética e identitária. Pretende-se observar, ainda, se o sucesso individual foi construído com base em estratégias autorais próprias, com auxílio de diretrizes da indústria musical, ou mesmo como uma ruptura intencional com a imagem consolidada pela banda.
-
-Ao analisar essas trajetórias, o projeto pretende identificar padrões de continuidade ou ruptura nas narrativas musicais, no branding artístico e na forma como esses músicos lidam com as expectativas deixadas pelo sucesso coletivo anterior. A pesquisa espera contribuir para a compreensão de como artistas oriundos de formações coletivas se adaptam ao mercado solo, especialmente sob a ótica da construção emocional e estratégica de suas carreiras musicais.
-
 ## 📌Arquivos gerados
 
 - `songs_info.csv`: dados tratados e normalizados resultantes dos notebooks construídos;
