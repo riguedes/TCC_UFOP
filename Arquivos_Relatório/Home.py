@@ -10,9 +10,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
-df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
-df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
+df = pd.read_csv("songs_info.csv")
+df_um = pd.read_csv("artistas_popularidade.csv")
+df_dois = pd.read_csv("artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -29,12 +29,17 @@ artista_selecionadas = st.sidebar.multiselect("Artista ou Banda", artista_dispon
 album_disponiveis = sorted(df['Album'].unique())
 album_selecionados = st.sidebar.multiselect("Álbum", album_disponiveis, default=album_disponiveis)
 
+# Filtro por Gênero
+genero = sorted(df['genre'].dropna().astype(str).unique())
+genero_um = st.sidebar.multiselect("Gênero Musical", genero, default=genero)
+
 # --- Filtragem do DataFrame ---
 # O dataframe principal é filtrado com base nas seleções feitas na barra lateral.
 df_filtrado = df[
     (df['release_year'].isin(anos_selecionados)) &
     (df['artist'].isin(artista_selecionadas)) &
-    (df['Album'].isin(album_selecionados)) 
+    (df['Album'].isin(album_selecionados)) &
+    (df['genre'].isin(genero_um))
 ]
 
 # --- Conteúdo Principal ---
