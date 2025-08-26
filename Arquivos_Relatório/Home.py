@@ -10,9 +10,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
-df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
-df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
+df = pd.read_csv("songs_info.csv")
+df_um = pd.read_csv("artistas_popularidade.csv")
+df_dois = pd.read_csv("artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -44,7 +44,7 @@ df_filtrado = df[
 
 # --- Conteúdo Principal ---
 st.title("🎲 Dashboard de Análise de Inferência de Emoções em Músicas")
-st.markdown("Explore os dados musicais de letras de bandas e artistas oriundos do reality show The X Factor. Utilize os filtros à esquerda caso queira algo específico.")
+st.markdown("Explore os dados musicais de letras de bandas e artistas. Utilize os filtros à esquerda caso queira algo específico.")
 
 # --- Métricas Principais (KPIs) ---
 st.subheader("Métricas Gerais")
@@ -110,6 +110,20 @@ with col_graf2:
 
     else:
         st.warning("Nenhum dado para exibir no gráfico de artistas por banda.")
+
+st.markdown("---")
+
+# Quantidade de músicas lançadas por gênero musical
+st.subheader("Quantidade de Músicas por Gênero")
+musicas_por_genero = df.groupby("genre")["title"].count().reset_index().sort_values("title", ascending=False)
+fig1 = px.bar(musicas_por_genero, x="genre", y="title", color="title", text="title")
+st.plotly_chart(fig1, use_container_width=True)
+
+# Quantidade de gêneros musicais usados por artista
+st.subheader("Quantidade de Gêneros por Artista")
+musicas_por_genero = df.groupby("artist")["genre"].nunique().reset_index().sort_values("genre", ascending=False)
+fig1 = px.bar(musicas_por_genero, x="artist", y="genre", color="genre", text="genre")
+st.plotly_chart(fig1, use_container_width=True)
 
 st.markdown("---")
 
