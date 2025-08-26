@@ -12,9 +12,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
-df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
-df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
+df = pd.read_csv("songs_info.csv")
+df_um = pd.read_csv("artistas_popularidade.csv")
+df_dois = pd.read_csv("artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -46,7 +46,7 @@ df_filtrado = df[
 
 # --- Conteúdo Principal ---
 st.title("Dashboard de Análise do Impacto Musical na Indústria")
-st.markdown("Explore os dados musicais desses artistas e bandas oriundos do reality show The X Factor em relação ao impacto na Indústria.")
+st.markdown("Explore os dados musicais desses artistas e bandas em relação ao impacto na Indústria.")
 
 # --- Métricas Principais (KPIs) ---
 st.subheader("Métricas Gerais")
@@ -123,4 +123,14 @@ st.subheader("Distribuição de Composições por Artista")
 fig = px.box(df, x="artist", y="Word Count", color="artist")
 st.plotly_chart(fig)
 
+# 8. Total de gêneros usados por ano
+st.subheader("Total de Gêneros por Ano")
+musicas_por_genero = df.groupby("release_year")["genre"].nunique().reset_index()
+fig8 = px.bar(musicas_por_genero, x="release_year", y="genre", color="genre", text="genre")
+st.plotly_chart(fig8, use_container_width=True)
 
+# 9. Top Álbuns por Quantidade de Gêneros
+st.subheader("Top Álbuns com maior Quantidade de Gêneros")
+top_genre = df.groupby("Album")["genre"].nunique().reset_index().sort_values("genre", ascending=False)
+fig9 = px.bar(top_genre.head(20), x="Album", y="genre", color="genre", text="genre")
+st.plotly_chart(fig9)

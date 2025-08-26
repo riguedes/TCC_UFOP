@@ -10,9 +10,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
-df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
-df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
+df = pd.read_csv("songs_info.csv")
+df_um = pd.read_csv("artistas_popularidade.csv")
+df_dois = pd.read_csv("artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -44,7 +44,7 @@ df_filtrado = df[
 
 # --- Conteúdo Principal ---
 st.title("Dashboard de Análise de Emoções")
-st.markdown("Explore os dados musicais dessas bandas e artistas oriundos do reality show The X Factor em relação a Análise de Sentimentos e Inferência de Emoções.")
+st.markdown("Explore os dados musicais dessas bandas e artistas em relação a Análise de Sentimentos e Inferência de Emoções.")
 
 # --- Métricas Principais (KPIs) ---
 st.subheader("Métricas Gerais")
@@ -143,5 +143,55 @@ with col_graf4:
         grafico_ano.update_layout(title_x=0.1)
         st.plotly_chart(grafico_ano, use_container_width=True)
     else:
-
         st.warning("Nenhum dado para exibir no gráfico por ano.")
+
+col_graf5, col_graf6 = st.columns(2)
+
+# Gráfico 5 - Todos os Gêneros por Score Médio
+with col_graf5:
+    if not df_filtrado.empty:
+        # Calcular score médio por artista e ordenar do menor para o maior (horizontal)
+        top_generos = df_filtrado.groupby('genre')['score'].mean().sort_values(ascending=True).reset_index()
+        
+        grafico_generos = px.bar(
+            top_generos,
+            x='score',
+            y='genre',
+            orientation='h',
+            title="Gêneros por Score Médio",
+            labels={'score': 'Score Médio', 'genre': ''}
+        )
+        
+        grafico_generos.update_layout(title_x=0.1, yaxis={'categoryorder': 'total ascending'})
+        st.plotly_chart(grafico_generos, use_container_width=True)
+    else:
+        st.warning("Nenhum dado para exibir no gráfico de artistas.")
+
+# Gráfico 6 - Quantidade de Gêneros por Sentimento (barras horizontais)
+with col_graf6:
+    if not df_filtrado.empty:
+        # Contagem de gêneros por sentimento
+        genero_contagem_um = (
+            df_filtrado.groupby(['sentiment', 'genre'])
+            .size()
+            .reset_index(name='quantidade')
+        )
+        
+        # Gráfico de barras horizontais empilhadas
+        grafico_generos_um = px.bar(
+            genero_contagem_um,
+            x='quantidade',
+            y='sentiment',
+            color='genre',
+            barmode='stack',
+            orientation='h',
+            title='Quantidade de Gêneros por Sentimento'
+        )
+        
+        # Ajustes visuais
+        grafico_generos_um.update_traces(text=None)  # garante que não exiba números
+        grafico_generos_um.update_layout(title_x=0.1, showlegend=True)
+        
+        st.plotly_chart(grafico_generos_um, use_container_width=True)
+    else:
+        st.warning("Nenhum dado para exibir no gráfico de gêneros por sentimento.")
