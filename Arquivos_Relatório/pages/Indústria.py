@@ -12,9 +12,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("songs_info.csv")
-df_um = pd.read_csv("artistas_popularidade.csv")
-df_dois = pd.read_csv("artistas_info.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
+df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
+df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -133,4 +133,5 @@ st.plotly_chart(fig8, use_container_width=True)
 st.subheader("Top Álbuns com maior Quantidade de Gêneros")
 top_genre = df.groupby("Album")["genre"].nunique().reset_index().sort_values("genre", ascending=False)
 fig9 = px.bar(top_genre.head(20), x="Album", y="genre", color="genre", text="genre")
+
 st.plotly_chart(fig9)
