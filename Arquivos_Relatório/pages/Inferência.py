@@ -3,52 +3,60 @@ import pandas as pd
 import plotly.express as px
 
 # --- Configuração da Página ---
-# Define o título da página, o ícone e o layout para ocupar a largura inteira.
 st.set_page_config(
     page_title="Inferify - Inferência de Emoções",
     layout="wide",
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
-df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
-df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
+df = pd.read_csv("songs_info.csv")
+df_um = pd.read_csv("artistas_popularidade.csv")
+df_dois = pd.read_csv("artistas_info.csv")
+
+# --- Colunas que queremos inverter ---
+colunas_inverter = ["score","joy","sadness","surprise","trust","anger","disgust","anticipation","fear"]
+
+# --- Inverter sinais ---
+for col in colunas_inverter:
+    if col in df.columns:
+        df[col] = df[col] * -1
+
+# --- Limpeza e padronização ---
+df['release_year'] = df['release_year'].astype(int)
+df['artist'] = df['artist'].astype(str).str.strip()
+df['Album'] = df['Album'].astype(str).str.strip()
+df['genre'] = df['genre'].astype(str).str.strip()
+df['sentiment'] = df['sentiment'].astype(str).str.strip()
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
 
-# Filtro de Ano
 anos_disponiveis = sorted(df['release_year'].unique())
 anos_selecionados = st.sidebar.multiselect("Ano de Lançamento", anos_disponiveis, default=anos_disponiveis)
 
-# Filtro de Artista
 artista_disponiveis = sorted(df['artist'].unique())
 artista_selecionadas = st.sidebar.multiselect("Artista ou Banda", artista_disponiveis, default=artista_disponiveis)
 
-# Filtro por Álbum
 album_disponiveis = sorted(df['Album'].unique())
 album_selecionados = st.sidebar.multiselect("Álbum", album_disponiveis, default=album_disponiveis)
 
-# Filtro por Gênero
-genero = sorted(df['genre'].dropna().astype(str).unique())
+genero = sorted(df['genre'].dropna().unique())
 genero_um = st.sidebar.multiselect("Gênero Musical", genero, default=genero)
 
-# --- Filtragem do DataFrame ---
-# O dataframe principal é filtrado com base nas seleções feitas na barra lateral.
+# --- Filtragem robusta ---
 df_filtrado = df[
-    (df['release_year'].isin(anos_selecionados)) &
-    (df['artist'].isin(artista_selecionadas)) &
-    (df['Album'].isin(album_selecionados)) &
-    (df['genre'].isin(genero_um))
-]
+    df['release_year'].isin(anos_selecionados) &
+    df['artist'].isin(artista_selecionadas) &
+    df['Album'].isin(album_selecionados) &
+    df['genre'].isin(genero_um)
+].copy()
 
 # --- Conteúdo Principal ---
 st.title("Dashboard de Análise de Emoções")
-st.markdown("Explore os dados musicais dessas bandas e artistas em relação a Análise de Sentimentos e Inferência de Emoções.")
+st.markdown("Explore os dados musicais dessas bandas e artistas em relação à Análise de Sentimentos e Inferência de Emoções.")
 
-# --- Métricas Principais (KPIs) ---
+# --- Métricas Principais ---
 st.subheader("Métricas Gerais")
-
 if not df_filtrado.empty:
     score_medio = df_filtrado['score'].mean()
     score_maximo = df_filtrado['score'].max()
@@ -65,17 +73,15 @@ col4.metric("Artista Mais Frequente", artista_mais_frequente)
 
 st.markdown("---")
 
-# --- Análises Visuais com Plotly ---
+# --- Gráficos ---
 st.subheader("Gráficos")
 
 col_graf1, col_graf2 = st.columns(2)
 
-# Gráfico 1 - Todos os Artistas por Score Médio
+# Gráfico 1 - Artistas por Score Médio
 with col_graf1:
     if not df_filtrado.empty:
-        # Calcular score médio por artista e ordenar do menor para o maior (horizontal)
-        top_artistas = df_filtrado.groupby('artist')['score'].mean().sort_values(ascending=True).reset_index()
-        
+        top_artistas = df_filtrado.groupby('artist')['score'].mean().sort_values().reset_index()
         grafico_artistas = px.bar(
             top_artistas,
             x='score',
@@ -84,7 +90,6 @@ with col_graf1:
             title="Artistas por Score Médio",
             labels={'score': 'Score Médio', 'artist': ''}
         )
-        
         grafico_artistas.update_layout(title_x=0.1, yaxis={'categoryorder': 'total ascending'})
         st.plotly_chart(grafico_artistas, use_container_width=True)
     else:
@@ -107,14 +112,11 @@ with col_graf2:
 
 col_graf3, col_graf4 = st.columns(2)
 
-# Gráfico 3 - Proporção de Sentimentos (Barras Verticais)
+# Gráfico 3 - Proporção de Sentimentos
 with col_graf3:
     if not df_filtrado.empty:
-        # Contagem de sentimentos
         sentimento_contagem = df_filtrado['sentiment'].value_counts().reset_index()
         sentimento_contagem.columns = ['sentimento', 'quantidade']
-        
-        # Gráfico de barras vertical
         grafico_sentimentos = px.bar(
             sentimento_contagem,
             x='sentimento',
@@ -123,13 +125,12 @@ with col_graf3:
             text='quantidade',
             title='Proporção de Sentimentos nas Músicas'
         )
-        
         grafico_sentimentos.update_layout(title_x=0.1, showlegend=False)
         st.plotly_chart(grafico_sentimentos, use_container_width=True)
     else:
         st.warning("Nenhum dado para exibir no gráfico de sentimentos.")
 
-# Gráfico 4 - Evolução do Score Médio por Ano de Lançamento
+# Gráfico 4 - Evolução do Score Médio por Ano
 with col_graf4:
     if not df_filtrado.empty:
         score_por_ano = df_filtrado.groupby('release_year')['score'].mean().reset_index()
@@ -145,54 +146,42 @@ with col_graf4:
     else:
         st.warning("Nenhum dado para exibir no gráfico por ano.")
 
-col_graf5, col_graf6 = st.columns(2)
+# --- Gráfico 5 - Gêneros por Score Médio ---
+if not df_filtrado.empty:
+    top_generos = df_filtrado.groupby('genre')['score'].mean().sort_values().reset_index()
+    grafico_generos = px.bar(
+        top_generos,
+        x='score',
+        y='genre',
+        orientation='h',
+        title="Gêneros por Score Médio",
+        labels={'score': 'Score Médio', 'genre': ''}
+    )
+    grafico_generos.update_layout(yaxis={'categoryorder': 'total ascending'})
+    st.plotly_chart(grafico_generos, use_container_width=True)
+else:
+    st.warning("Nenhum dado para exibir no gráfico de gêneros.")
 
-# Gráfico 5 - Todos os Gêneros por Score Médio
-with col_graf5:
-    if not df_filtrado.empty:
-        # Calcular score médio por artista e ordenar do menor para o maior (horizontal)
-        top_generos = df_filtrado.groupby('genre')['score'].mean().sort_values(ascending=True).reset_index()
-        
-        grafico_generos = px.bar(
-            top_generos,
-            x='score',
-            y='genre',
-            orientation='h',
-            title="Gêneros por Score Médio",
-            labels={'score': 'Score Médio', 'genre': ''}
-        )
-        
-        grafico_generos.update_layout(title_x=0.1, yaxis={'categoryorder': 'total ascending'})
-        st.plotly_chart(grafico_generos, use_container_width=True)
-    else:
-        st.warning("Nenhum dado para exibir no gráfico de artistas.")
-
-# Gráfico 6 - Quantidade de Gêneros por Sentimento (barras horizontais)
-with col_graf6:
-    if not df_filtrado.empty:
-        # Contagem de gêneros por sentimento
-        genero_contagem_um = (
-            df_filtrado.groupby(['sentiment', 'genre'])
-            .size()
-            .reset_index(name='quantidade')
-        )
-        
-        # Gráfico de barras horizontais empilhadas
-        grafico_generos_um = px.bar(
-            genero_contagem_um,
-            x='quantidade',
-            y='sentiment',
-            color='genre',
-            barmode='stack',
-            orientation='h',
-            title='Quantidade de Gêneros por Sentimento'
-        )
-        
-        # Ajustes visuais
-        grafico_generos_um.update_traces(text=None)  # garante que não exiba números
-        grafico_generos_um.update_layout(title_x=0.1, showlegend=True)
-        
-        st.plotly_chart(grafico_generos_um, use_container_width=True)
-    else:
-        st.warning("Nenhum dado para exibir no gráfico de gêneros por sentimento.")
-
+# --- Gráfico 6 - Heatmap: Distribuição de Gêneros por Sentimento ---
+if not df_filtrado.empty:
+    genero_contagem_um = df_filtrado.groupby(['sentiment', 'genre']).size().reset_index(name='quantidade')
+    
+    grafico_heatmap = px.density_heatmap(
+        genero_contagem_um,
+        x='genre',
+        y='sentiment',
+        z='quantidade',
+        color_continuous_scale='Viridis',
+        text_auto=True,
+        title='Distribuição de Gêneros por Sentimento'
+    )
+    
+    grafico_heatmap.update_layout(
+        xaxis_title="Gênero",
+        yaxis_title="Sentimento",
+        yaxis={'categoryorder':'total ascending'}
+    )
+    
+    st.plotly_chart(grafico_heatmap, use_container_width=True)
+else:
+    st.warning("Nenhum dado para exibir no heatmap de gêneros por sentimento.")
