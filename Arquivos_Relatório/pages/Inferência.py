@@ -9,9 +9,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("songs_info.csv")
-df_um = pd.read_csv("artistas_popularidade.csv")
-df_dois = pd.read_csv("artistas_info.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/songs_info.csv")
+df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_popularidade.csv")
+df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Arquivos_Relat%C3%B3rio/artistas_info.csv")
 
 # --- Colunas que queremos inverter ---
 colunas_inverter = ["score","joy","sadness","surprise","trust","anger","disgust","anticipation","fear"]
@@ -184,4 +184,5 @@ if not df_filtrado.empty:
     
     st.plotly_chart(grafico_heatmap, use_container_width=True)
 else:
+
     st.warning("Nenhum dado para exibir no heatmap de gêneros por sentimento.")
