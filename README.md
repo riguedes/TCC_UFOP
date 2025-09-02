@@ -2,6 +2,7 @@
 Trabalho de Conclusão de Curso (TCC) pela Universidade Federal de Ouro Preto com o tema: Inferindo Emoções em Músicas Através do Processamento de Linguagem Natural e Metadados Musicais. Este repositório irá conter o projeto prático que tem como objetivo inferir emoções em músicas a partir de análise de letras e extração de metadados usando API's públicas de músicas. O estudo utiliza Processamento de Linguagem Natural (PLN) e técnicas de análise de dados para Recuperação de Informação Musical.
 
 O relatório final pode ser visto através do link: https://inferify-oficial.streamlit.app/
+
 Uma versão 2.0 mais aprimorada pode ser vista em: https://inferify2.streamlit.app/
 
 ## 📌Problema de Pesquisa
