@@ -9,9 +9,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/songs_info.csv)
-df_um = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_popularidade.csv)
-df_dois = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_info.csv)
+df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/songs_info.csv")
+df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_popularidade.csv")
+df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
