@@ -10,9 +10,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv("songs_info.csv")
-df_um = pd.read_csv("artistas_popularidade.csv")
-df_dois = pd.read_csv("artistas_info.csv")
+df = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/songs_info.csv)
+df_um = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_popularidade.csv)
+df_dois = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_info.csv)
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -112,4 +112,5 @@ for i, row in enumerate(df_sorted.itertuples()):
 st.subheader("Média de Popularidade por Tipo de Artista")
 mean_pop = df_um_filtrado.groupby("tipo")["popularidade"].mean().round(0).astype(int).reset_index()
 fig6 = px.bar(mean_pop, x="tipo", y="popularidade", color="tipo", text="popularidade")
+
 st.plotly_chart(fig6, use_container_width=True)
