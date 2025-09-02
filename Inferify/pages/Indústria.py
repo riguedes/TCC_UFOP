@@ -12,9 +12,9 @@ st.set_page_config(
 )
 
 # --- Carregamento dos dados ---
-df = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/songs_info.csv)
-df_um = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_popularidade.csv)
-df_dois = pd.read_csv(https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_info.csv)
+df = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/songs_info.csv")
+df_um = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_popularidade.csv")
+df_dois = pd.read_csv("https://raw.githubusercontent.com/riguedes/TCC_UFOP/refs/heads/main/Inferify/artistas_info.csv")
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -146,3 +146,4 @@ top_genre = df_filtrado.groupby("Album")["genre"].nunique().reset_index().sort_v
 fig9 = px.bar(top_genre.head(20), x="Album", y="genre", color="genre", text="genre")
 
 st.plotly_chart(fig9)
+
